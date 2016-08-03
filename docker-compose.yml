@@ -1,0 +1,28 @@
+nginx:
+  image: nginx:latest
+  container_name: ng01
+  links:
+    - spiderweb:spiderweb
+  ports:
+    - "8080:80"
+    - "8443:8443"
+  volumes:
+    - .env:/app/.env
+    - ./src:/app/src
+
+spiderweb:
+  build: .
+  container_name: spidy
+  ports:
+    - "8080:8080"
+  links:
+    - psql:psql
+
+psql:
+  container_name: psql
+  image: postgres:latest
+  ports:
+    - "3306:3306"
+
+
+
