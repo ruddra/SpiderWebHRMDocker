@@ -2,21 +2,21 @@ nginx:
   image: nginx:latest
   container_name: ng01
   links:
-    - spiderweb:spiderweb
+    - firefist:firefist
   ports:
-    - "8080:80"
-    - "8443:8443"
+    - "8080:8080"
   volumes:
-    - .env:/app/.env
     - ./src:/app/src
 
-spiderweb:
+firefist:
   build: .
-  container_name: spidy
+  container_name: ff01
   ports:
     - "8080:8080"
   links:
     - psql:psql
+  volumes:
+    - ./src:/app/src
 
 psql:
   container_name: psql
