@@ -2,7 +2,7 @@ include app.conf
 all: clone build up
 clone:
 	rm -rf src; git clone --recursive $(gitrepo) -b $(gitbranch) src; \
-	cp config/_settings.py.py src/firefist/firefist/;
+	cp config/_settings.py src/firefist/firefist/;
 
 build:
 	docker-compose build

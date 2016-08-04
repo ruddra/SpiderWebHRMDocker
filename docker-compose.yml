@@ -4,19 +4,19 @@ nginx:
   links:
     - firefist:firefist
   ports:
-    - "8080:8080"
+    - "8080:80"
   volumes:
     - ./src:/app/src
 
 firefist:
   build: .
   container_name: ff01
-  ports:
-    - "8080:8080"
   links:
     - psql:psql
   volumes:
     - ./src:/app/src
+  ports:
+    - "8000:8000"
 
 psql:
   container_name: psql
