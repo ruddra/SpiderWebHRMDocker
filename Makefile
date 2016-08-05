@@ -22,6 +22,9 @@ stop:
 restart:
 	docker-compose restart
 
+pull:
+	cd src; git pull;
+
 # restart-app:
 # 	docker exec -t -i $(app_container) supervisorctl restart \
 # 	portal:* soap-http soap-https celery
