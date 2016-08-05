@@ -4,9 +4,10 @@ nginx:
   links:
     - firefist:firefist
   ports:
-    - "8080:80"
+    - "7070:8000"
   volumes:
     - ./src:/app/src
+    - ./config/nginx:/etc/nginx/conf.d
 
 firefist:
   build: .
@@ -15,14 +16,19 @@ firefist:
     - psql:psql
   volumes:
     - ./src:/app/src
-  ports:
-    - "8000:8000"
+    - ./logs:/app/src/firefist/logs
+  expose:
+    - "8000"
 
 psql:
-  container_name: psql
+  container_name: ps01
   image: postgres:latest
   ports:
     - "3306:3306"
+  environment:
+    - POSTGRES_PASSWORD=ROOT
+    - POSTGRES_USER=ROOT
+
 
 
 

@@ -9,6 +9,7 @@ RUN apt-get update; \
 # Add config dir
 ADD config/ /config
 # RUN python3 -m easy_install mysql-connector-python; pip3 install -r /config/requirements.pip
-RUN pip3 install -r /config/requirements.pip
-EXPOSE 8080
+RUN pip3 install -r /config/requirements.pip; cd /app/src/firefist; python3 manage.py makemigrations; \
+python3 manage.py migrate
+EXPOSE 8000
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/config/supervisord.conf"]
