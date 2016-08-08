@@ -35,8 +35,8 @@ pull:
 
 # update: code-pull restart-app
 
-# shell:
-# 	docker exec -ti $(app_container) bash
+shell:
+	docker exec -ti $(app_container) bash
 
-# shell-mysql:
-# 	docker exec -t -i $(mysql_container) bash
+shell-mysql:
+	docker exec -t -i $(psql_container) bash

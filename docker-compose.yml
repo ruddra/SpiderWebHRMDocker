@@ -4,7 +4,7 @@ nginx:
   links:
     - firefist:firefist
   ports:
-    - "7070:8000"
+    - "8000:8000"
   volumes:
     - ./src:/app/src
     - ./config/nginx:/etc/nginx/conf.d
@@ -17,6 +17,7 @@ firefist:
   volumes:
     - ./src:/app/src
     - ./logs:/app/src/firefist/logs
+    - ./logs/django:/app/logs/django.log
   expose:
     - "8000"
 
