@@ -1,35 +1,32 @@
-nginx:
-  image: nginx:latest
-  container_name: ng01
-  links:
-    - firefist:firefist
-  ports:
-    - "8000:8000"
-  volumes:
-    - ./src:/app/src
-    - ./config/nginx:/etc/nginx/conf.d
-
-firefist:
-  build: .
-  container_name: ff01
-  links:
-    - psql:psql
-  volumes:
-    - ./src:/app/src
-    - ./logs:/app/src/firefist/logs
-    - ./logs/django:/app/logs/django.log
-  expose:
-    - "8000"
-
-psql:
-  container_name: ps01
-  image: postgres:latest
-  ports:
-    - "3306:3306"
-  environment:
-    - POSTGRES_PASSWORD=ROOT
-    - POSTGRES_USER=ROOT
-
-
-
-
+version: '2'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: ng01
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/src
+      - ./config/nginx:/etc/nginx/conf.d
+    depends_on:
+      - firefist
+  firefist:
+    build: .
+    container_name: ff01
+    command: bash -c "cp /config/settings_.py /src/firefist/firefist && python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - psql
+    volumes:
+      - ./src:/src
+      - ./logs:/src/firefist/logs
+    expose:
+      - "8000"
+    
+  psql:
+    # build: ./postgres
+    image: postgres:latest
+    container_name: ps01
+    environment:
+        - POSTGRES_PASSWORD=root
+        - POSTGRES_USER=root
+        - POSTGRES_DB=firefistdb

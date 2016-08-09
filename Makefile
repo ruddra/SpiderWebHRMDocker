@@ -2,7 +2,7 @@ include app.conf
 all: clone build up
 clone:
 	rm -rf src; git clone --recursive $(gitrepo) -b $(gitbranch) src; \
-	cp config/_settings.py src/firefist/firefist/;
+	cp config/settings_.py src/firefist/firefist/;
 
 build:
 	docker-compose build
@@ -38,5 +38,10 @@ pull:
 shell:
 	docker exec -ti $(app_container) bash
 
-shell-mysql:
+shell-db:
 	docker exec -t -i $(psql_container) bash
+
+push-src:
+	cd src; git add --all; git commit -m "New commit"; git push;
+push:
+	git add --all; git commit -m "New commit"; git push;
